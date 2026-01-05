@@ -1,0 +1,118 @@
+=================================================================
+          JINTERIO WEBSITE - PROJECT FOLDER STRUCTURE
+=================================================================
+
+This is what your website folder should look like:
+
+your-jinterio-website/
+│
+├── index.html                          ← Your updated website file
+├── jinterio-logo.svg                  ← New logo (navy)
+├── jinterio-logo-white.svg            ← New logo (white)
+│
+└── projects/                           ← CREATE THIS MAIN FOLDER
+    │
+    ├── kitchen-remodel-jp-nagar/       ← Project 1
+    │   ├── 1.jpg                       ← Image 1
+    │   ├── 2.jpg                       ← Image 2
+    │   ├── 3.jpg                       ← Image 3
+    │   ├── 4.jpg                       ← Image 4
+    │   └── 5.jpg                       ← Image 5
+    │
+    ├── bedroom-interior-whitefield/    ← Project 2
+    │   ├── 1.jpg
+    │   ├── 2.jpg
+    │   ├── 3.jpg
+    │   └── 4.jpg
+    │
+    ├── living-room-koramangala/       ← Project 3
+    │   ├── image1.jpg                 ← Alternative naming
+    │   ├── image2.jpg
+    │   ├── image3.jpg
+    │   └── image4.jpg
+    │
+    ├── bathroom-renovation-indiranagar/ ← Project 4
+    │   ├── 1.jpg
+    │   ├── 2.jpg
+    │   └── 3.jpg
+    │
+    └── office-interior-mg-road/       ← Project 5
+        ├── img1.jpg                    ← Another naming option
+        ├── img2.jpg
+        ├── img3.jpg
+        └── img4.jpg
+
+=================================================================
+                    IMPORTANT NOTES
+=================================================================
+
+1. FOLDER NAMING:
+   ✅ Good: kitchen-remodel, bedroom-interior, living_room
+   ❌ Bad: Kitchen Remodel, bedroom interior, living room!
+
+2. IMAGE NAMING (Choose one style per project):
+   ✅ Style 1: 1.jpg, 2.jpg, 3.jpg, 4.jpg...
+   ✅ Style 2: image1.jpg, image2.jpg, image3.jpg...
+   ✅ Style 3: img1.jpg, img2.jpg, img3.jpg...
+   ❌ Don't use: IMG_0123.jpg, photo-kitchen.jpg, DSC0456.jpg
+
+3. SUPPORTED FORMATS:
+   ✅ .jpg, .jpeg, .png, .webp, .gif
+
+4. FILE SIZES:
+   - Recommended: 1200-1600px width
+   - Keep under 500KB per image for fast loading
+   - Compress images before uploading
+
+=================================================================
+                   UPDATING THE CODE
+=================================================================
+
+After creating your project folders, open index.html and find:
+
+    async function getProjectFolders() {
+      return [
+        'project-1',
+        'project-2',
+      ];
+    }
+
+Update it to match YOUR folder names:
+
+    async function getProjectFolders() {
+      return [
+        'kitchen-remodel-jp-nagar',
+        'bedroom-interior-whitefield',
+        'living-room-koramangala',
+        'bathroom-renovation-indiranagar',
+        'office-interior-mg-road',
+      ];
+    }
+
+=================================================================
+                      HOW IT WORKS
+=================================================================
+
+The website will:
+1. Look in the 'projects' folder
+2. Find each project subfolder you listed
+3. Load images from each folder (1.jpg, 2.jpg, etc.)
+4. Display them in a beautiful grid
+5. Show folder name as title:
+   - "kitchen-remodel" becomes "Kitchen Remodel"
+   - "bedroom_interior" becomes "Bedroom Interior"
+
+=================================================================
+                     ADDING NEW PROJECTS
+=================================================================
+
+Tomorrow when you finish a new project:
+
+Step 1: Create folder: projects/new-apartment-btm/
+Step 2: Add images: 1.jpg, 2.jpg, 3.jpg...
+Step 3: Update index.html, add: 'new-apartment-btm'
+Step 4: Upload and refresh!
+
+No other code changes needed!
+
+=================================================================

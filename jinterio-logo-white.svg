@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 100" width="280" height="100">
+  <!-- House Icon - White version -->
+  <g>
+    <!-- House outline -->
+    <path d="M12 48 L45 18 L78 48 L78 85 L12 85 Z" 
+          fill="none" 
+          stroke="#ffffff" 
+          stroke-width="5" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"/>
+    <!-- Window frame -->
+    <rect x="32" y="42" width="26" height="24" rx="2" fill="#ffffff"/>
+    <!-- Window panes (navy cross) -->
+    <line x1="45" y1="42" x2="45" y2="66" stroke="#0a2540" stroke-width="3"/>
+    <line x1="32" y1="54" x2="58" y2="54" stroke="#0a2540" stroke-width="3"/>
+  </g>
+  
+  <!-- JInterio Text - White -->
+  <text x="95" y="62" 
+        font-family="Georgia, 'Playfair Display', 'Times New Roman', serif" 
+        font-size="48" 
+        font-weight="700" 
+        fill="#ffffff" 
+        letter-spacing="2">JInterio</text>
+</svg>

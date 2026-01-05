@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JInterio - Transparent Interior Execution in Bangalore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a2540;
+      --navy-light: #1a3a5c;
+      --blue: #0066cc;
+      --blue-light: #e8f4fd;
+      --gold: #c9a227;
+      --gold-light: #f5ecd4;
+      --white: #ffffff;
+      --off-white: #f8f9fa;
+      --gray: #6b7c93;
+      --gray-light: #e3e8ee;
+      --success: #00a67e;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--off-white);
+      color: var(--navy);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(10, 37, 64, 0.3);
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+    }
+    
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    .cta-btn {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 10px 20px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .cta-btn:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+    }
+    
+    /* Hamburger Menu */
+    .menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      padding: 10px;
+      gap: 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    
+    .menu-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .menu-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(180deg, var(--navy) 0%, var(--navy-light) 100%);
+      padding: 100px 30px 40px;
+      transition: right 0.3s ease;
+      z-index: 99;
+      box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-menu.active {
+      right: 0;
+    }
+    
+    .nav-menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+      text-decoration: none;
+      padding: 16px 0;
+      font-size: 16px;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .nav-menu a:hover {
+      color: var(--gold);
+      padding-left: 10px;
+    }
+    
+    .nav-menu a svg {
+      width: 20px;
+      height: 20px;
+      opacity: 0.7;
+    }
+    
+    .nav-menu .menu-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 30px;
+      padding: 14px 24px;
+      background: var(--gold);
+      color: var(--navy);
+      border-radius: 50px;
+      font-weight: 600;
+      border: none;
+    }
+    
+    .nav-menu .menu-cta:hover {
+      background: var(--white);
+      padding-left: 24px;
+    }
+    
+    .menu-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 98;
+    }
+    
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .header-cta {
+      display: none;
+    }
+    
+    @media (min-width: 768px) {
+      .header-cta {
+        display: flex;
+      }
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: 60px 20px 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero-tagline {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 30px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .hero-badge svg {
+      width: 18px;
+      height: 18px;
+      color: var(--gold);
+    }
+    
+    /* Banner Image */
+    .banner-section {
+      margin: -40px 20px 0;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .banner-img {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      display: block;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(10, 37, 64, 0.2);
+    }
+    
+    /* Section Styles */
+    .section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    
+    .section-subtitle {
+      font-size: 16px;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Trust Badges */
+    .trust-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px 20px;
+      margin: 40px 20px;
+      box-shadow: 0 4px 20px rgba(10, 37, 64, 0.06);
+    }
+    
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .trust-item {
+      text-align: center;
+      padding: 20px 15px;
+    }
+    
+    .trust-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--blue-light);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+    
+    .trust-icon svg {
+      width: 24px;
+      height: 24px;
+      color: var(--blue);
+    }
+    
+    .trust-item h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .trust-item p {
+      font-size: 12px;
+      color: var(--gray);
+    }
+    
+    /* Pricing Cards */
+    .pricing-grid {
+      display: grid;
+      gap: 20px;
+    }
+    
+    .pricing-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 30px 24px;
+      box-shadow: 0 4px 20px rgba(10, 37, 64, 0.06);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(10, 37, 64, 0.12);
+    }
+    
+    .pricing-card.featured {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, var(--white) 0%, var(--gold-light) 100%);
+    }
+    
+    .pricing-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: 16px;
+      right: -32px;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 40px;
+      transform: rotate(45deg);
+      letter-spacing: 0.5px;
+    }
+    
+    .option-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--navy);
+      color: var(--white);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    
+    .pricing-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--navy);
+    }
+    
+    .pricing-card .price {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 4px;
+    }
+    
+    .pricing-card .price-note {
+      font-size: 13px;
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    
+    .pricing-card .description {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.7;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-light);
+    }
+    
+    .pricing-highlight {
+      background: var(--blue-light);
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--navy);
+    }
+    
+    .pricing-highlight strong {
+      color: var(--blue);
+    }
+    
+    /* Premium Materials */
+    .materials-section {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      margin: 0 20px;
+      border-radius: 24px;
+      padding: 50px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .materials-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(201, 162, 39, 0.2) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    
+    .materials-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .materials-section .section-label {
+      color: var(--gold);
+    }
+    
+    .materials-section .section-title {
+      color: var(--white);
+    }
+    
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+    }
+    
+    .material-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .material-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    .material-item .brand {
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 2px;
+    }
+    
+    .material-item .category {
+      opacity: 0.8;
+      font-size: 12px;
+    }
+    
+    /* Services */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    
+    .service-item {
+      background: var(--white);
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(10, 37, 64, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .service-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(10, 37, 64, 0.1);
+    }
+    
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--blue-light) 0%, var(--white) 100%);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+    
+    .service-item h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    
+    /* Process */
+    .process-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .process-step {
+      background: var(--white);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(10, 37, 64, 0.05);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    
+    .step-number {
+      min-width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    
+    .step-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--navy);
+    }
+    
+    .step-content p {
+      font-size: 14px;
+      color: var(--gray);
+    }
+    
+    /* Why Choose Us */
+    .why-grid {
+      display: grid;
+      gap: 16px;
+    }
+    
+    .why-item {
+      background: var(--white);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(10, 37, 64, 0.05);
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    
+    .why-icon {
+      min-width: 44px;
+      height: 44px;
+      background: var(--success);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .why-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--white);
+    }
+    
+    .why-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--navy);
+    }
+    
+    .why-content p {
+      font-size: 14px;
+      color: var(--gray);
+    }
+    
+    /* Contact Section */
+    .contact-section {
+      background: var(--white);
+      margin: 40px 20px;
+      border-radius: 24px;
+      padding: 50px 24px;
+      text-align: center;
+      box-shadow: 0 4px 30px rgba(10, 37, 64, 0.08);
+    }
+    
+    .contact-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 30px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+    
+    .contact-btn.whatsapp {
+      background: #25D366;
+      color: var(--white);
+    }
+    
+    .contact-btn.whatsapp:hover {
+      background: #20bd5a;
+      transform: translateY(-2px);
+    }
+    
+    .contact-btn.call {
+      background: var(--navy);
+      color: var(--white);
+    }
+    
+    .contact-btn.call:hover {
+      background: var(--navy-light);
+      transform: translateY(-2px);
+    }
+    
+    .contact-btn.email {
+      background: var(--blue-light);
+      color: var(--blue);
+    }
+    
+    .contact-btn.email:hover {
+      background: var(--blue);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    
+    .contact-info {
+      margin-top: 30px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-light);
+    }
+    
+    .contact-info p {
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 8px;
+    }
+    
+    .contact-info strong {
+      color: var(--navy);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--navy);
+      color: var(--white);
+      text-align: center;
+      padding: 30px 20px;
+    }
+    
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .footer-tagline {
+      font-size: 14px;
+      opacity: 0.7;
+      margin-bottom: 20px;
+    }
+    
+    .footer-location {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+    
+    .footer-location svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .copyright {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 12px;
+      opacity: 0.6;
+    }
+    
+    /* Floating WhatsApp Button */
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+      z-index: 1000;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+    
+    .floating-whatsapp:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.5);
+    }
+    
+    .floating-whatsapp svg {
+      width: 32px;
+      height: 32px;
+      color: var(--white);
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+      50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.6); }
+      100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
+    }
+    
+    /* Desktop Styles */
+    @media (min-width: 768px) {
+      header {
+        padding: 24px 40px;
+      }
+      
+      .logo {
+        width: 60px;
+        height: 60px;
+      }
+      
+      .brand-name {
+        font-size: 28px;
+      }
+      
+      .hero {
+        padding: 100px 40px 120px;
+      }
+      
+      .hero h1 {
+        font-size: 52px;
+      }
+      
+      .hero-tagline {
+        font-size: 20px;
+      }
+      
+      .banner-section {
+        margin: -60px 40px 0;
+      }
+      
+      .section {
+        padding: 80px 40px;
+      }
+      
+      .section-title {
+        font-size: 40px;
+      }
+      
+      .trust-section {
+        margin: 60px 40px;
+        padding: 50px 40px;
+      }
+      
+      .trust-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .materials-section {
+        margin: 0 40px;
+        padding: 60px 50px;
+      }
+      
+      .materials-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .services-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .process-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      
+      .process-step {
+        flex: 1;
+        min-width: 280px;
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .step-number {
+        margin: 0 auto;
+      }
+      
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .contact-section {
+        margin: 60px 40px;
+        padding: 70px 50px;
+      }
+      
+      .contact-buttons {
+        flex-direction: row;
+        max-width: 600px;
+      }
+      
+      .contact-btn {
+        flex: 1;
+      }
+    }
+    
+    /* Projects Gallery Section */
+    .projects-section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .project-folder {
+      margin-bottom: 50px;
+    }
+    
+    .project-header {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      color: var(--white);
+      padding: 20px 24px;
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .project-header svg {
+      width: 24px;
+      height: 24px;
+      color: var(--gold);
+    }
+    
+    .project-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+    
+    .project-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 24px;
+      background: var(--white);
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 4px 20px rgba(10, 37, 64, 0.06);
+    }
+    
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      aspect-ratio: 4/3;
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(10, 37, 64, 0.15);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+    
+    .gallery-item-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(10, 37, 64, 0.8) 0%, transparent 100%);
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+    
+    .gallery-item-overlay p {
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .lightbox.active {
+      display: flex;
+    }
+    
+    .lightbox-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: var(--white);
+      color: var(--navy);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .lightbox-close:hover {
+      background: var(--gold);
+      transform: rotate(90deg);
+    }
+    
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--navy);
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    
+    .lightbox-nav:hover {
+      background: var(--gold);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    .lightbox-nav.prev {
+      left: 20px;
+    }
+    
+    .lightbox-nav.next {
+      right: 20px;
+    }
+    
+    .lightbox-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 12px 24px;
+      border-radius: 50px;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    /* Loading/Empty State */
+    .loading-state, .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--gray);
+    }
+    
+    .loading-state svg, .empty-state svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .loading-state svg {
+      animation: spin 1s linear infinite;
+      color: var(--blue);
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .empty-state {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(10, 37, 64, 0.06);
+    }
+    
+    .empty-state svg {
+      color: var(--gray-light);
+    }
+    
+    .empty-state h3 {
+      font-size: 20px;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+    
+    .empty-state p {
+      font-size: 14px;
+      color: var(--gray);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <div class="logo-group">
+        <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+          <!-- House outline -->
+          <path d="M8 38 L40 12 L72 38 L72 72 L8 72 Z" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Window -->
+          <rect x="28" y="35" width="24" height="22" rx="2" fill="#ffffff"/>
+          <!-- Window panes -->
+          <line x1="40" y1="35" x2="40" y2="57" stroke="#0a2540" stroke-width="2.5"/>
+          <line x1="28" y1="46" x2="52" y2="46" stroke="#0a2540" stroke-width="2.5"/>
+        </svg>
+        <span class="brand-name">JInterio</span>
+      </div>
+      <div class="header-actions">
+        <a href="https://wa.me/919553983094" class="cta-btn header-cta">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Get Quote
+        </a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Menu -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <nav class="nav-menu" id="navMenu">
+    <a href="#pricing">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"/></svg>
+      Pricing
+    </a>
+    <a href="#materials">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l9.5 5.5v11L12 23l-9.5-5.5v-11L12 1zm0 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+      Materials
+    </a>
+    <a href="#services">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 13v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-7H2v-2l1-5h18l1 5v2h-1zM5 13v6h14v-6H5zm1 1h8v3H6v-3zM3 3h18v2H3V3z"/></svg>
+      Services
+    </a>
+    <a href="#process">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+      Process
+    </a>
+    <a href="#why-us">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+      Why Us
+    </a>
+    <a href="#projects">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.5-7l-1.75 2.25L10 11.5 7 15h10l-3.5-3z"/></svg>
+      Projects
+    </a>
+    <a href="#contact">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16.42v3.536a1 1 0 0 1-.93.998c-.437.03-.794.046-1.07.046-8.837 0-16-7.163-16-16 0-.276.015-.633.046-1.07A1 1 0 0 1 4.044 3H7.58a.5.5 0 0 1 .498.45c.023.23.044.413.064.552A13.901 13.901 0 0 0 9.35 8.003c.095.2.033.439-.147.567l-2.158 1.542a13.047 13.047 0 0 0 6.844 6.844l1.54-2.154a.462.462 0 0 1 .573-.149 13.901 13.901 0 0 0 4 1.205c.139.02.322.042.55.064a.5.5 0 0 1 .449.498z"/></svg>
+      Contact
+    </a>
+    <a href="https://wa.me/919553983094?text=Hi%2C%20I'm%20interested%20in%20interior%20work%20for%20my%20home." class="menu-cta">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us
+    </a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Transparent Interior Execution</h1>
+      <p class="hero-tagline">You choose every material. We handle everything else. No hidden costs, no surprises.</p>
+      <div class="hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        Serving Bangalore Since 2020
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner -->
+  <div class="banner-section">
+    <img src="A_promotional_digital_graphic_for_Jahu_Interiors_s.png" alt="Premium Materials" class="banner-img" />
+  </div>
+
+  <!-- Trust Badges -->
+  <div class="trust-section">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        </div>
+        <h3>100% Transparent</h3>
+        <p>See every bill, pay vendors directly</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"/></svg>
+        </div>
+        <h3>No Hidden Costs</h3>
+        <p>Fixed coordination fee only</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 22a8 8 0 1 1 16 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z"/></svg>
+        </div>
+        <h3>Expert Supervision</h3>
+        <p>Personally managed projects</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l9.5 5.5v11L12 23l-9.5-5.5v-11L12 1zm0 14a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+        </div>
+        <h3>Premium Quality</h3>
+        <p>Only branded materials</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Section -->
+  <section class="section" id="pricing">
+    <div class="section-header">
+      <p class="section-label">Flexible Pricing</p>
+      <h2 class="section-title">Choose Your Plan</h2>
+      <p class="section-subtitle">Four flexible options to match your needs and budget</p>
+    </div>
+    
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <span class="option-number">1</span>
+        <h3>You Select, We Execute</h3>
+        <p class="price">Flat 10%</p>
+        <p class="price-note">of total project spend</p>
+        <p class="description">You choose all materials and brands yourself. We handle purchasing, transportation, labour coordination, and fitting. You pay vendors directly and see every bill.</p>
+        <div class="pricing-highlight">
+          <strong>Best for:</strong> Those who want complete control over material selection
+        </div>
+      </div>
+      
+      <div class="pricing-card featured">
+        <span class="option-number">2</span>
+        <h3>Per Square Foot</h3>
+        <p class="price">â‚¹1,300 â€“ â‚¹2,000</p>
+        <p class="price-note">per sq.ft based on materials</p>
+        <p class="description">We select quality materials based on your budget preferences. All-inclusive pricing with no hidden charges. Perfect balance of convenience and customization.</p>
+        <div class="pricing-highlight">
+          <strong>Best for:</strong> Those who want a hassle-free experience with quality assurance
+        </div>
+      </div>
+      
+      <div class="pricing-card">
+        <span class="option-number">3</span>
+        <h3>Premium Package</h3>
+        <p class="price">â‚¹1,500 / â‚¹900 / â‚¹2,000</p>
+        <p class="price-note">Wardrobe / Loft / Kitchen per sq.ft</p>
+        <p class="description">Premium branded materials included: Green/Century ply, acrylic sheets, Asian Royal paint, Ebco/Hettich hardware, Godrej profile, Havells, Wipro, Philips. Kitchen sink, faucet, chimney & top extra.</p>
+        <div class="pricing-highlight">
+          <strong>Best for:</strong> Those who want guaranteed premium quality
+        </div>
+      </div>
+      
+      <div class="pricing-card">
+        <span class="option-number">4</span>
+        <h3>Lumpsum Quote</h3>
+        <p class="price">Custom</p>
+        <p class="price-note">based on discussion</p>
+        <p class="description">For complete home interiors or unique requirements. We'll discuss your needs and provide a comprehensive quote covering everything from design to execution.</p>
+        <div class="pricing-highlight">
+          <strong>Best for:</strong> Full home makeovers and custom projects
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Premium Materials -->
+  <div class="materials-section" id="materials">
+    <div class="materials-content">
+      <div class="section-header">
+        <p class="section-label">Quality Guaranteed</p>
+        <h2 class="section-title">Premium Materials Only</h2>
+      </div>
+      
+      <div class="materials-grid">
+        <div class="material-item">
+          <p class="brand">Green & Century</p>
+          <p class="category">Plywood</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Acrylic Sheets</p>
+          <p class="category">Laminates</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Asian Royal</p>
+          <p class="category">Paints</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Ebco / Hettich</p>
+          <p class="category">Hardware</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Godrej</p>
+          <p class="category">Profiles</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Havells</p>
+          <p class="category">Fans & Electrical</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Kohler</p>
+          <p class="category">Sink & Faucet</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Prestige / Faber</p>
+          <p class="category">Chimney</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Wipro & Philips</p>
+          <p class="category">Lighting</p>
+        </div>
+        <div class="material-item">
+          <p class="brand">Nano White / Quartz</p>
+          <p class="category">Kitchen Top</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <section class="section" id="services">
+    <div class="section-header">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Our Services</h2>
+      <p class="section-subtitle">Complete interior execution from start to finish</p>
+    </div>
+    
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon">ðŸ³</div>
+        <h4>Kitchen Setup</h4>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">ðŸšª</div>
+        <h4>Wardrobes & Lofts</h4>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">ðŸ’¡</div>
+        <h4>False Ceiling</h4>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">ðŸŽ¨</div>
+        <h4>Painting</h4>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">ðŸ“º</div>
+        <h4>TV Unit & Study</h4>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">ðŸ </div>
+        <h4>Floor & Tiles</h4>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">ðŸš¿</div>
+        <h4>Bathroom Fittings</h4>
+      </div>
+      <div class="service-item">
+        <div class="service-icon">ðŸšš</div>
+        <h4>Transport & Labour</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="section" id="process" style="background: var(--white); max-width: 100%; border-radius: 0;">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      <div class="section-header">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title">Our Process</h2>
+        <p class="section-subtitle">Simple, transparent, and customer-first</p>
+      </div>
+      
+      <div class="process-list">
+        <div class="process-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Select Materials</h4>
+            <p>You choose materials and brands you prefer</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Vendor Options</h4>
+            <p>We show real vendors with genuine bills</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Coordination</h4>
+            <p>We manage carpenters, electricians & plumbers</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>Direct Payment</h4>
+            <p>You pay vendors directly â€“ full transparency</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <h4>Fixed Fee</h4>
+            <p>Just 10% coordination fee on total spend</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="section" id="why-us">
+    <div class="section-header">
+      <p class="section-label">The JInterio Difference</p>
+      <h2 class="section-title">Why Choose Us</h2>
+      <p class="section-subtitle">What sets us apart from traditional interior designers</p>
+    </div>
+    
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        </div>
+        <div class="why-content">
+          <h4>100% Transparency</h4>
+          <p>You see every bill and pay vendors directly. No hidden charges, ever.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        </div>
+        <div class="why-content">
+          <h4>Real Cost Savings</h4>
+          <p>No hidden markup on materials. Our fee is fixed and transparent.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        </div>
+        <div class="why-content">
+          <h4>Material Freedom</h4>
+          <p>You choose your own brands and finishes. No forced packages.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        </div>
+        <div class="why-content">
+          <h4>Flexible Start</h4>
+          <p>Start with one room and expand anytime. No minimum commitment.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        </div>
+        <div class="why-content">
+          <h4>Quality Control</h4>
+          <p>Every project is personally supervised by experienced professionals.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z"/></svg>
+        </div>
+        <div class="why-content">
+          <h4>Genuine Guidance</h4>
+          <p>No sales talk, no surprises â€” only honest advice and execution.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Gallery Section -->
+  <section class="section" id="projects">
+    <div class="section-header">
+      <p class="section-label">Our Work</p>
+      <h2 class="section-title">Completed Projects</h2>
+      <p class="section-subtitle">Explore our portfolio of successful interior executions</p>
+    </div>
+    
+    <div id="projectsGallery" class="projects-section">
+      <div class="loading-state">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" opacity="0.3"/>
+          <path d="M12 2v4a6 6 0 0 1 6 6h4a10 10 0 0 0-10-10z"/>
+        </svg>
+        <p>Loading projects...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" onclick="if(event.target === this) closeLightbox()">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">×</button>
+      <button class="lightbox-nav prev" onclick="navigateLightbox(-1)">‹</button>
+      <img id="lightboxImg" src="" alt="Project Image">
+      <button class="lightbox-nav next" onclick="navigateLightbox(1)">›</button>
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="contact-section" id="contact">
+    <div class="section-header">
+      <p class="section-label">Get Started</p>
+      <h2 class="section-title">Let's Build Your Dream Space</h2>
+      <p class="section-subtitle">Get a free consultation and transparent quote today</p>
+    </div>
+    
+    <div class="contact-buttons">
+      <a href="https://wa.me/919553983094?text=Hi%2C%20I'm%20interested%20in%20interior%20work%20for%20my%20home." class="contact-btn whatsapp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <a href="tel:+919553983094" class="contact-btn call">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16.42v3.536a1 1 0 0 1-.93.998c-.437.03-.794.046-1.07.046-8.837 0-16-7.163-16-16 0-.276.015-.633.046-1.07A1 1 0 0 1 4.044 3H7.58a.5.5 0 0 1 .498.45c.023.23.044.413.064.552A13.901 13.901 0 0 0 9.35 8.003c.095.2.033.439-.147.567l-2.158 1.542a13.047 13.047 0 0 0 6.844 6.844l1.54-2.154a.462.462 0 0 1 .573-.149 13.901 13.901 0 0 0 4 1.205c.139.02.322.042.55.064a.5.5 0 0 1 .449.498z"/></svg>
+        Call Now
+      </a>
+      <a href="mailto:jahu@jinterio.com" class="contact-btn email">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h18a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm17 4.238l-7.928 7.1L4 7.216V19h16V7.238zM4.511 5l7.55 6.662L19.502 5H4.511z"/></svg>
+        Email
+      </a>
+    </div>
+    
+    <div class="contact-info">
+      <p><strong>ðŸ“ž Phone:</strong> +91-9553983094 / 9538909192</p>
+      <p><strong>âœ‰ï¸ Email:</strong> jahu@jinterio.com</p>
+      <p><strong>ðŸ“ Location:</strong> Bangalore, India</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p class="footer-logo">JInterio</p>
+    <p class="footer-tagline">Transparent, Hassle-Free Interior Execution</p>
+    <p class="footer-location">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.9l4.95-4.95a7 7 0 1 0-9.9 0L12 20.9zm0 2.828l-6.364-6.364a9 9 0 1 1 12.728 0L12 23.728zM12 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+      Bangalore, India
+    </p>
+    <p class="copyright">Â© 2026 JInterio. All rights reserved.</p>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919553983094?text=Hi%2C%20I'm%20interested%20in%20interior%20work%20for%20my%20home." class="floating-whatsapp" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- Hamburger Menu JavaScript -->
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    const menuOverlay = document.getElementById('menuOverlay');
+    
+    function toggleMenu() {
+      menuToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      menuOverlay.classList.toggle('active');
+      document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    menuToggle.addEventListener('click', toggleMenu);
+    menuOverlay.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (navMenu.classList.contains('active')) {
+          toggleMenu();
+        }
+      });
+    });
+  </script>
+
+  <!-- Project Gallery Script -->
+  <script>
+    // Gallery Configuration
+    const PROJECTS_CONFIG = {
+      baseFolder: 'projects',
+      supportedFormats: ['jpg', 'jpeg', 'png', 'webp', 'gif']
+    };
+
+    let allProjects = [];
+    let currentLightboxIndex = 0;
+    let currentProjectImages = [];
+
+    // Initialize Gallery
+    async function initGallery() {
+      const galleryContainer = document.getElementById('projectsGallery');
+      
+      try {
+        const projects = await loadProjects();
+        
+        if (projects.length === 0) {
+          galleryContainer.innerHTML = `
+            <div class="empty-state">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.5-7l-1.75 2.25L10 11.5 7 15h10l-3.5-3z"/>
+              </svg>
+              <h3>No Projects Yet</h3>
+              <p>Projects will appear here once you add them!</p>
+            </div>
+          `;
+          return;
+        }
+        
+        allProjects = projects;
+        renderProjects(projects, galleryContainer);
+        
+      } catch (error) {
+        console.error('Error loading gallery:', error);
+        galleryContainer.innerHTML = `
+          <div class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+            </svg>
+            <h3>Projects Coming Soon</h3>
+            <p>Check back soon to see our completed projects!</p>
+          </div>
+        `;
+      }
+    }
+
+    // Load Projects
+    async function loadProjects() {
+      const projectFolders = await getProjectFolders();
+      const projects = [];
+      
+      for (const folder of projectFolders) {
+        const images = await getProjectImages(folder);
+        if (images.length > 0) {
+          projects.push({
+            name: folder,
+            images: images
+          });
+        }
+      }
+      
+      return projects;
+    }
+
+    // Get Project Folders - UPDATE THIS WHEN ADDING NEW PROJECTS
+    async function getProjectFolders() {
+      // ADD YOUR PROJECT FOLDER NAMES HERE
+      // Example: return ['kitchen-remodel', 'bedroom-interior', 'living-room'];
+      return [
+        'sattva-bliss-b1012',
+		'prestige-tranquility-11126'
+      ];
+    }
+
+    // Get Images from Project Folder
+    async function getProjectImages(folderName) {
+      const images = [];
+      const formats = PROJECTS_CONFIG.supportedFormats;
+      
+      // Try common naming patterns
+      const commonNames = [
+        '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+        'image1', 'image2', 'image3', 'image4', 'image5',
+        'img1', 'img2', 'img3', 'img4', 'img5'
+      ];
+      
+      for (const name of commonNames) {
+        for (const format of formats) {
+          const path = `${PROJECTS_CONFIG.baseFolder}/${folderName}/${name}.${format}`;
+          if (await imageExists(path)) {
+            images.push({
+              path: path,
+              name: `${name}.${format}`
+            });
+          }
+        }
+      }
+      
+      return images;
+    }
+
+    // Check if Image Exists
+    async function imageExists(url) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    }
+
+    // Render Projects
+    function renderProjects(projects, container) {
+      container.innerHTML = projects.map((project, projectIndex) => `
+        <div class="project-folder">
+          <div class="project-header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+            </svg>
+            <h3>${formatProjectName(project.name)}</h3>
+          </div>
+          <div class="project-gallery">
+            ${project.images.map((image, imageIndex) => `
+              <div class="gallery-item" onclick="openLightbox(${projectIndex}, ${imageIndex})">
+                <img src="${image.path}" alt="${image.name}" loading="lazy">
+                <div class="gallery-item-overlay">
+                  <p>${image.name}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Format Project Name
+    function formatProjectName(name) {
+      return name
+        .replace(/-/g, ' ')
+        .replace(/_/g, ' ')
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    }
+
+    // Open Lightbox
+    function openLightbox(projectIndex, imageIndex) {
+      const project = allProjects[projectIndex];
+      currentProjectImages = project.images;
+      currentLightboxIndex = imageIndex;
+      
+      updateLightbox();
+      
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Close Lightbox
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Navigate Lightbox
+    function navigateLightbox(direction) {
+      currentLightboxIndex += direction;
+      
+      if (currentLightboxIndex < 0) {
+        currentLightboxIndex = currentProjectImages.length - 1;
+      } else if (currentLightboxIndex >= currentProjectImages.length) {
+        currentLightboxIndex = 0;
+      }
+      
+      updateLightbox();
+    }
+
+    // Update Lightbox
+    function updateLightbox() {
+      const image = currentProjectImages[currentLightboxIndex];
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxCaption = document.getElementById('lightboxCaption');
+      
+      lightboxImg.src = image.path;
+      lightboxCaption.textContent = `${currentLightboxIndex + 1} / ${currentProjectImages.length}`;
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('lightbox');
+      if (!lightbox.classList.contains('active')) return;
+      
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowLeft') {
+        navigateLightbox(-1);
+      } else if (e.key === 'ArrowRight') {
+        navigateLightbox(1);
+      }
+    });
+
+    // Initialize on Page Load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initGallery);
+    } else {
+      initGallery();
+    }
+  </script>
+</body>
+</html>
