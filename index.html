@@ -1001,6 +1001,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       aspect-ratio: 4/3;
+      background: var(--gray-light);
     }
     
     .gallery-item:hover {
@@ -1013,6 +1014,12 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
+      opacity: 0;
+    }
+    
+    .gallery-item img.loaded {
+      opacity: 1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
     
     .gallery-item:hover img {
@@ -1038,6 +1045,29 @@
       color: var(--white);
       font-size: 13px;
       font-weight: 500;
+    }
+    
+    /* Image Loading Placeholder */
+    .gallery-item::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40px;
+      height: 40px;
+      margin: -20px 0 0 -20px;
+      border: 3px solid var(--gray-light);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    .gallery-item img.loaded ~ ::before {
+      display: none;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
     
     /* Lightbox */
@@ -1158,10 +1188,6 @@
     .loading-state svg {
       animation: spin 1s linear infinite;
       color: var(--blue);
-    }
-    
-    @keyframes spin {
-      to { transform: rotate(360deg); }
     }
     
     .empty-state {
@@ -1562,7 +1588,7 @@
         </div>
         <div class="why-content">
           <h4>Genuine Guidance</h4>
-          <p>No sales talk, no surprises — only honest advice and execution.</p>
+          <p>No sales talk, no surprises – only honest advice and execution.</p>
         </div>
       </div>
     </div>
@@ -1669,17 +1695,21 @@
       });
     });
   </script>
-  <!-- Project Gallery Script -->
+
+  <!-- OPTIMIZED Project Gallery Script with Lazy Loading -->
   <script>
     // Gallery Configuration
     const PROJECTS_CONFIG = {
       baseFolder: 'projects',
-      supportedFormats: ['jpg', 'jpeg', 'png', 'webp', 'gif']
+      supportedFormats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+      maxImagesPerBatch: 6, // Load 6 images at a time
+      observerThreshold: 0.1 // Start loading when 10% visible
     };
 
     let allProjects = [];
     let currentLightboxIndex = 0;
     let currentProjectImages = [];
+    let imageObserver = null;
 
     // Initialize Gallery
     async function initGallery() {
@@ -1703,6 +1733,7 @@
         
         allProjects = projects;
         renderProjects(projects, galleryContainer);
+        setupLazyLoading();
         
       } catch (error) {
         console.error('Error loading gallery:', error);
@@ -1716,6 +1747,48 @@
           </div>
         `;
       }
+    }
+
+    // Setup Intersection Observer for Lazy Loading
+    function setupLazyLoading() {
+      const options = {
+        root: null,
+        rootMargin: '50px', // Start loading 50px before entering viewport
+        threshold: PROJECTS_CONFIG.observerThreshold
+      };
+
+      imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            loadImage(img);
+            observer.unobserve(img);
+          }
+        });
+      }, options);
+
+      // Observe all images
+      document.querySelectorAll('.gallery-item img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
+    }
+
+    // Load Individual Image
+    function loadImage(img) {
+      const src = img.getAttribute('data-src');
+      if (!src) return;
+
+      const tempImg = new Image();
+      tempImg.onload = () => {
+        img.src = src;
+        img.classList.add('loaded');
+        img.removeAttribute('data-src');
+      };
+      tempImg.onerror = () => {
+        console.error('Failed to load image:', src);
+        img.style.display = 'none';
+      };
+      tempImg.src = src;
     }
 
     // Load Projects
@@ -1736,13 +1809,11 @@
       return projects;
     }
 
-    // Get Project Folders - UPDATE THIS WHEN ADDING NEW PROJECTS
+    // Get Project Folders
     async function getProjectFolders() {
-      // ADD YOUR PROJECT FOLDER NAMES HERE
-      // Example: return ['kitchen-remodel', 'bedroom-interior', 'living-room'];
       return [
         'sattva-bliss-b1012',
-		'prestige-tranquility-11126'
+        'prestige-tranquility-11126'
       ];
     }
 
@@ -1751,21 +1822,16 @@
       const images = [];
       const formats = PROJECTS_CONFIG.supportedFormats;
       
-      // Try common naming patterns
-      const commonNames = [
-        '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-        'image1', 'image2', 'image3', 'image4', 'image5',
-        'img1', 'img2', 'img3', 'img4', 'img5'
-      ];
-      
-      for (const name of commonNames) {
+      // Try numbers 1-20
+      for (let i = 1; i <= 20; i++) {
         for (const format of formats) {
-          const path = `${PROJECTS_CONFIG.baseFolder}/${folderName}/${name}.${format}`;
+          const path = `${PROJECTS_CONFIG.baseFolder}/${folderName}/${i}.${format}`;
           if (await imageExists(path)) {
             images.push({
               path: path,
-              name: `${name}.${format}`
+              name: `${i}.${format}`
             });
+            break; // Found this number, move to next
           }
         }
       }
@@ -1773,17 +1839,25 @@
       return images;
     }
 
-    // Check if Image Exists
+    // Check if Image Exists (with caching)
+    const imageExistsCache = new Map();
     async function imageExists(url) {
-      return new Promise((resolve) => {
+      if (imageExistsCache.has(url)) {
+        return imageExistsCache.get(url);
+      }
+      
+      const exists = await new Promise((resolve) => {
         const img = new Image();
         img.onload = () => resolve(true);
         img.onerror = () => resolve(false);
         img.src = url;
       });
+      
+      imageExistsCache.set(url, exists);
+      return exists;
     }
 
-    // Render Projects
+    // Render Projects (with lazy loading)
     function renderProjects(projects, container) {
       container.innerHTML = projects.map((project, projectIndex) => `
         <div class="project-folder">
@@ -1796,7 +1870,7 @@
           <div class="project-gallery">
             ${project.images.map((image, imageIndex) => `
               <div class="gallery-item" onclick="openLightbox(${projectIndex}, ${imageIndex})">
-                <img src="${image.path}" alt="${image.name}" loading="lazy">
+                <img data-src="${image.path}" alt="${image.name}">
                 <div class="gallery-item-overlay">
                   <p>${image.name}</p>
                 </div>
